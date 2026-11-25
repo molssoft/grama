@@ -1,0 +1,28 @@
+:root{--bg:#f6f7f9;--fg:#1c2330;--muted:#667085;--card:#fff;--line:#d9dde4;--accent:#1f6f54;--accent-h:#17594a;--err:#b42318}
+@media(prefers-color-scheme:dark){:root{--bg:#10141a;--fg:#e8ebf0;--muted:#98a2b3;--card:#181d26;--line:#2b3340;--accent:#3aa27f;--accent-h:#4dbb96;--err:#f97066}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--fg)}
+.muted{color:var(--muted)}
+.brand{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:1.25rem;color:inherit;text-decoration:none}
+.brand-mark{display:grid;place-items:center;width:2rem;height:2rem;border-radius:.5rem;background:var(--accent);color:#fff}
+.guest-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;padding:1.5rem}
+.card{width:100%;max-width:24rem;background:var(--card);border:1px solid var(--line);border-radius:.75rem;padding:2rem;box-shadow:0 1px 3px rgba(16,24,40,.08)}
+.card h1{margin:0 0 .25rem;font-size:1.5rem}
+.card .muted{margin:0 0 1.25rem}
+label{display:block;margin:1rem 0 .25rem;font-weight:600;font-size:.9rem}
+input[type=email],input[type=password]{width:100%;padding:.6rem .75rem;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:.5rem}
+input:focus{outline:2px solid var(--accent);outline-offset:1px}
+input.invalid{border-color:var(--err)}
+.error{margin:.25rem 0 0;color:var(--err);font-size:.875rem}
+label.check{display:flex;align-items:center;gap:.5rem;font-weight:400}
+button{width:100%;margin-top:1.5rem;padding:.65rem;font:inherit;font-weight:600;color:#fff;background:var(--accent);border:0;border-radius:.5rem;cursor:pointer}
+button:hover{background:var(--accent-h)}
+button.link{width:auto;margin:0 0 0 .75rem;padding:0;background:none;color:var(--accent);text-decoration:underline}
+.foot{margin:0;color:var(--muted);font-size:.85rem}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1.5rem;background:var(--card);border-bottom:1px solid var(--line)}
+.page{max-width:60rem;margin:2rem auto;padding:0 1.5rem}
+.lang-switcher{display:flex;gap:.25rem}
+.lang-switcher button{width:auto;margin:0;padding:.2rem .55rem;font-size:.8rem;color:var(--muted);background:none;border:1px solid var(--line)}
+.lang-switcher button:hover{background:var(--card);color:var(--fg)}
+.lang-switcher button.active{color:#fff;background:var(--accent);border-color:var(--accent)}
+.topbar-actions{display:flex;align-items:center;gap:.75rem}
