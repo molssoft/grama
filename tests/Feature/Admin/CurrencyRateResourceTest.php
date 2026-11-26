@@ -73,6 +73,34 @@ class CurrencyRateResourceTest extends TestCase
             ->assertCanNotSeeTableRecords([$old, $otherCurrency]);
     }
 
+    public function test_today_button_shows_only_the_latest_rates_up_to_today(): void
+    {
+        $this->signIn();
+        $older = CurrencyRate::factory()->create(['currency_id' => $this->usd->id, 'date' => now()->subDays(5)->toDateString()]);
+        $latest = CurrencyRate::factory()->create(['currency_id' => $this->usd->id, 'date' => now()->subDay()->toDateString()]);
+        $future = CurrencyRate::factory()->create(['currency_id' => $this->usd->id, 'date' => now()->addDay()->toDateString()]);
+
+        Livewire::test(ManageCurrencyRates::class)
+            ->assertSeeHtml('wire:click="toggleTodayRates"')
+            ->call('toggleTodayRates')
+            ->assertCanSeeTableRecords([$latest])
+            ->assertCanNotSeeTableRecords([$older, $future])
+            ->call('toggleTodayRates')
+            ->assertCanSeeTableRecords([$older, $latest, $future]);
+    }
+
+    public function test_list_is_ordered_by_date_then_currency_code(): void
+    {
+        $this->signIn();
+        $gbp = Currency::factory()->create(['code' => 'GBP']);
+        $newUsd = CurrencyRate::factory()->create(['currency_id' => $this->usd->id, 'date' => '2026-06-10']);
+        $newGbp = CurrencyRate::factory()->create(['currency_id' => $gbp->id, 'date' => '2026-06-10']);
+        $oldGbp = CurrencyRate::factory()->create(['currency_id' => $gbp->id, 'date' => '2026-06-09']);
+
+        Livewire::test(ManageCurrencyRates::class)
+            ->assertCanSeeTableRecords([$newGbp, $newUsd, $oldGbp], inOrder: true);
+    }
+
     public function test_custom_rate_can_be_created_for_the_current_company(): void
     {
         $this->signIn();

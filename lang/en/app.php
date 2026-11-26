@@ -90,6 +90,7 @@ return [
         'source' => 'Source',
         'from' => 'From',
         'until' => 'Until',
+        'today' => 'Today\'s rates',
         'set_custom' => 'Set custom rate',
         'custom_help' => 'Your company\'s own rate. It takes precedence over the global rate for the same date.',
     ],

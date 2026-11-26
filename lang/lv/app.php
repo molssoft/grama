@@ -90,6 +90,7 @@ return [
         'source' => 'Avots',
         'from' => 'No',
         'until' => 'Līdz',
+        'today' => 'Šodienas kursi',
         'set_custom' => 'Iestatīt pielāgoto kursu',
         'custom_help' => 'Jūsu uzņēmuma kurss. Tam ir prioritāte pār vispārējo kursu tajā pašā datumā.',
     ],

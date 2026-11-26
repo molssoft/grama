@@ -17,6 +17,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\CurrencyRates\Pages\ManageCurrencyRates;
 use App\Filament\Tenancy\EditCompanyProfile;
 use App\Filament\Tenancy\RegisterCompany;
 use App\Filament\Tenancy\SelectCompany;
@@ -33,6 +34,7 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\View\TablesRenderHook;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -69,6 +71,15 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::USER_MENU_BEFORE,
                 fn (): View => view('components.language-switcher'),
+            )
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn (): string => '<style>.fi-sidebar-nav-groups{row-gap:.5rem}</style>',
+            )
+            ->renderHook(
+                TablesRenderHook::TOOLBAR_SEARCH_BEFORE,
+                fn (): View => view('filament.currency-rates.today-button'),
+                scopes: ManageCurrencyRates::class,
             )
             ->colors([
                 'primary' => Color::Amber,

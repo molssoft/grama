@@ -37,4 +37,10 @@ class ManageCurrencyRates extends ManageRecords
                 ]),
         ];
     }
+
+    public function toggleTodayRates(): void
+    {
+        $this->tableFilters['today']['isActive'] = ! ($this->tableFilters['today']['isActive'] ?? false);
+        $this->resetPage();
+    }
 }

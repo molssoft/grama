@@ -85,6 +85,12 @@ class CurrencyRatesTable
                             ($data['until'] ?? null) ? __('app.exchange_rates.until').': '.$data['until'] : null,
                         ]));
                     }),
+                Filter::make('today')
+                    ->label(__('app.exchange_rates.today'))
+                    ->toggle()
+                    ->query(fn (Builder $query): Builder => $query->whereDate('date', CurrencyRate::query()
+                        ->whereDate('date', '<=', today())
+                        ->max('date') ?? today())),
                 SelectFilter::make('type')
                     ->label(__('app.exchange_rates.type'))
                     ->options([
@@ -97,7 +103,9 @@ class CurrencyRatesTable
                         default => $query,
                     }),
             ])
-            ->defaultSort('date', 'desc')
+            ->defaultSort(fn (Builder $query): Builder => $query
+                ->orderByDesc('date')
+                ->orderBy(Currency::query()->select('code')->whereColumn('currencies.id', 'currency_rates.currency_id')))
             ->recordActions([
                 Action::make('setCustomRate')
                     ->label(__('app.exchange_rates.set_custom'))
