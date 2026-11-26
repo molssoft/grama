@@ -28,6 +28,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
@@ -56,6 +57,11 @@ class AdminPanelProvider extends PanelProvider
             ->tenant(Company::class, slugAttribute: 'slug')
             ->tenantRegistration(RegisterCompany::class)
             ->tenantProfile(EditCompanyProfile::class)
+            ->navigationGroups([
+                NavigationGroup::make(fn (): string => __('app.navigation.accounting')),
+                NavigationGroup::make(fn (): string => __('app.navigation.currencies')),
+                NavigationGroup::make(fn (): string => __('app.navigation.settings')),
+            ])
             ->navigationItems([
                 NavigationItem::make(fn (): string => __('app.companies.settings'))
                     ->group(fn (): string => __('app.navigation.settings'))
